@@ -15,7 +15,7 @@ import { SubjectModule } from './subject/subject.module';
       username: process.env.DATABASE_USERNAME,
       password: process.env.DATABASE_PASSWORD,
       database: process.env.DATABASE_NAME,
-      synchronize: false,
+      synchronize: true,
       autoLoadEntities: true,
     }),
     SubjectModule

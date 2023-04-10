@@ -7,4 +7,7 @@ export class Subject {
 
   @Column()
   name: string;
+
+  @Column()
+  address: string;
 }

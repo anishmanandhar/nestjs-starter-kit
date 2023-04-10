@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository,FindOneOptions } from 'typeorm';
 import { Subject } from './subject.entity';
 
 /**
@@ -18,7 +18,8 @@ export class SubjectService {
   }
 
   async findOne(id: number): Promise<Subject> {
-    return null;
+    const options: FindOneOptions<Subject> = { where: { id } };
+    return this.subjectRepository.findOne(options);
   }
 
   async create(subject: Subject): Promise<Subject> {
@@ -27,7 +28,8 @@ export class SubjectService {
 
   async update(id: number, subject: Subject): Promise<Subject> {
     await this.subjectRepository.update(id, subject);
-    return null;
+    const options: FindOneOptions<Subject> = { where: { id } };
+    return this.subjectRepository.findOne(options);
   }
 
   async delete(id: number): Promise<void> {

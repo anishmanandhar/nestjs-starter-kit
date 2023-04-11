@@ -3,12 +3,15 @@ dependencies:
   '@nestjs/config': 1.2.1_87a643b959b6379e0154059edf291609
   '@nestjs/core': 8.4.7_98d4e1064a231daa5940e5cf20e5b108
   '@nestjs/jwt': 10.0.3_@nestjs+common@8.4.7
+  '@nestjs/passport': 9.0.3_02481135cc74f3ad74599c5993d40444
   '@nestjs/platform-express': 8.4.7_fce4c3b686c1225eb94686491d30b061
   '@nestjs/swagger': 5.2.1_499d2dcd4dbc76d7b27bbe84c5a170c4
   '@nestjs/typeorm': 9.0.1_d7e58f27d57bb79cea932324dc98f1b2
   class-transformer: 0.5.1
   class-validator: 0.13.2
   jwks-rsa: 3.0.1
+  passport: 0.6.0
+  passport-jwt: 4.0.1
   pg: 8.10.0
   reflect-metadata: 0.1.13
   rxjs: 7.8.0
@@ -970,6 +973,16 @@ packages:
         optional: true
     resolution:
       integrity: sha512-NFvofzSinp00j5rzUd4tf+xi9od6383iY0JP7o0Bnu1fuItAUkWBgc4EKuIQ3D+c2QI3i9pG1kDWAeY27EMGtg==
+  /@nestjs/passport/9.0.3_02481135cc74f3ad74599c5993d40444:
+    dependencies:
+      '@nestjs/common': 8.4.7_a169448a01966c89739c8b27d66c723e
+      passport: 0.6.0
+    dev: false
+    peerDependencies:
+      '@nestjs/common': ^8.0.0 || ^9.0.0
+      passport: ^0.4.0 || ^0.5.0 || ^0.6.0
+    resolution:
+      integrity: sha512-HplSJaimEAz1IOZEu+pdJHHJhQyBOPAYWXYHfAPQvRqWtw4FJF1VXl1Qtk9dcXQX1eKytDtH+qBzNQc19GWNEg==
   /@nestjs/platform-express/8.4.7_fce4c3b686c1225eb94686491d30b061:
     dependencies:
       '@nestjs/common': 8.4.7_a169448a01966c89739c8b27d66c723e
@@ -4505,6 +4518,29 @@ packages:
       node: '>= 0.8'
     resolution:
       integrity: sha512-CiyeOxFT/JZyN5m0z9PfXw4SCBJ6Sygz1Dpl0wqjlhDEGGBP1GnsUVEL0p63hoG1fcj3fHynXi9NYO4nWOL+qQ==
+  /passport-jwt/4.0.1:
+    dependencies:
+      jsonwebtoken: 9.0.0
+      passport-strategy: 1.0.0
+    dev: false
+    resolution:
+      integrity: sha512-UCKMDYhNuGOBE9/9Ycuoyh7vP6jpeTp/+sfMJl7nLff/t6dps+iaeE0hhNkKN8/HZHcJ7lCdOyDxHdDoxoSvdQ==
+  /passport-strategy/1.0.0:
+    dev: false
+    engines:
+      node: '>= 0.4.0'
+    resolution:
+      integrity: sha512-CB97UUvDKJde2V0KDWWB3lyf6PC3FaZP7YxZ2G8OAtn9p4HI9j9JLP9qjOGZFvyl8uwNT8qM+hGnz/n16NI7oA==
+  /passport/0.6.0:
+    dependencies:
+      passport-strategy: 1.0.0
+      pause: 0.0.1
+      utils-merge: 1.0.1
+    dev: false
+    engines:
+      node: '>= 0.4.0'
+    resolution:
+      integrity: sha512-0fe+p3ZnrWRW74fe8+SvCyf4a3Pb2/h7gFkQ8yTJpAO50gDzlfjZUZTO1k5Eg9kUct22OxHLqDZoKUWRHOh9ug==
   /path-exists/4.0.0:
     dev: true
     engines:
@@ -4541,6 +4577,10 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-gDKb8aZMDeD/tZWs9P6+q0J9Mwkdl6xMV8TjnGP3qJVJ06bdMgkbBlLU8IdfOsIsFz2BW1rNVT3XuNEl8zPAvw==
+  /pause/0.0.1:
+    dev: false
+    resolution:
+      integrity: sha512-KG8UEiEVkR3wGEb4m5yZkVCzigAD+cVEJck2CzYZO37ZGJfctvVptVO192MwrtPhzONn6go8ylnOdMhKqi4nfg==
   /pg-connection-string/2.5.0:
     dev: false
     resolution:
@@ -6061,6 +6101,7 @@ specifiers:
   '@nestjs/config': ^1.0.0
   '@nestjs/core': ^8.1.4
   '@nestjs/jwt': ^10.0.3
+  '@nestjs/passport': ^9.0.3
   '@nestjs/platform-express': ^8.1.4
   '@nestjs/schematics': ^9.1.0
   '@nestjs/swagger': ^5.1.0
@@ -6076,6 +6117,8 @@ specifiers:
   eslint: ^8.2.0
   jest: ^27.4.7
   jwks-rsa: ^3.0.1
+  passport: ^0.6.0
+  passport-jwt: ^4.0.1
   pg: ^8.10.0
   prettier: ^2.5.1
   reflect-metadata: ^0.1.13

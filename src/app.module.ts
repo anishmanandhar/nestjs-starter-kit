@@ -7,45 +7,51 @@ import { PassportModule } from '@nestjs/passport';
 import { JwtStrategy } from './auth/jwt.strategy';
 
 
+const configModule = ConfigModule.forRoot({isGlobal: true });
+
+const passportModule = PassportModule.register({ defaultStrategy: 'jwt' });
 /**
- * 
+ * JWT Configurations
  */
-interface JwtModuleOptions {
-  secret: string;
-  signOptions: {
-    expiresIn: string;
-  };
-}
+const jwtModule = JwtModule.registerAsync({
+  imports: [ConfigModule],
+  useFactory: (configService: ConfigService) => ({
+    secret: configService.get<string>('JWT_SECRET'),
+    signOptions: {
+      expiresIn: '24h',
+    },
+  }),
+  inject: [ConfigService],
+});
+
+
+/**
+ * TypeOrm Configurations
+ */
+const typeOrmModule = TypeOrmModule.forRootAsync({
+  useFactory: async () => ({
+    type: 'postgres',
+    host: process.env.DATABASE_HOST,
+    port: +process.env.DATABASE_PORT,
+    username: process.env.DATABASE_USERNAME,
+    password: process.env.DATABASE_PASSWORD,
+    database: process.env.DATABASE_NAME,
+    synchronize: true,
+    autoLoadEntities: true
+  })
+})
+
+console.log(typeOrmModule);
 
 @Module({
   imports: [
-    ConfigModule.forRoot({
-      envFilePath: ['.env'],
-    }),
-    PassportModule.register({ defaultStrategy: 'jwt' }),
-    JwtModule.registerAsync({
-      imports: [ConfigModule],
-      useFactory: (configService: ConfigService) => ({
-        secret: configService.get<string>('JWT_SECRET'),
-        signOptions: {
-          expiresIn: '24h',
-        },
-      }),
-      inject: [ConfigService],
-    }),
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: process.env.DATABASE_HOST,
-      port: +process.env.DATABASE_PORT,
-      username: process.env.DATABASE_USERNAME,
-      password: process.env.DATABASE_PASSWORD,
-      database: process.env.DATABASE_NAME,
-      synchronize: true,
-      autoLoadEntities: true,
-    }),
+    configModule,
+    passportModule,
+    jwtModule,
+    typeOrmModule,
     SubjectModule
   ],
-  providers: [JwtStrategy],
-  exports: [PassportModule, JwtStrategy]
+  providers: [JwtStrategy, SubjectModule],
+  exports: [PassportModule]
 })
 export class AppModule {}
